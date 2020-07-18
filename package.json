@@ -1,0 +1,29 @@
+{
+  "name": "team-profile-gen",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "jest --verbose test/*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SjeromeK/team-profile-gen.git"
+  },
+  "author": "",
+  "license": "GNU",
+  "bugs": {
+    "url": "https://github.com/SjeromeK/team-profile-gen/issues"
+  },
+  "homepage": "https://github.com/SjeromeK/team-profile-gen#readme",
+  "dependencies": {
+    "inquirer": "^7.3.2"
+  },
+  "devDependencies": {
+    "jest": "^26.1.0"
+  }
+}
