@@ -10,6 +10,51 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+function startApp() {
+
+  function startTeam() {
+      console.log("Build your team")
+    inquirer
+      .prompt([
+        /* Pass your questions in here */
+        {
+          type: "input",
+          name: "managerName",
+          message: "Enter manager name",
+        },
+        {
+            type: "input",
+            name: "managerID",
+            message: "Enter manager ID",
+        },
+        {
+            type: "input",
+            name: "managerEmail",
+            message: "Enter manager email"
+        },
+        {
+            type: "input",
+            name: "officeNumber",
+            message: "Enter office number"
+        }
+      ])
+      .then((answers) => {
+        // Use user feedback for... whatever!!
+      })
+      .catch((error) => {
+        if (error.isTtyError) {
+          // Prompt couldn't be rendered in the current environment
+        } else {
+          // Something else when wrong
+        }
+      });
+  } 
+
+startTeam();
+
+}
+
+startApp();
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
