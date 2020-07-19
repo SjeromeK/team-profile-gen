@@ -12,6 +12,8 @@ const render = require("./lib/htmlRenderer");
 
 // some kind of array that stores each individual team member
 
+const teamMembers = [];
+
 function startApp() {
   function startTeam() {
     console.log("Build your team");
@@ -48,6 +50,9 @@ function startApp() {
           answers.managerEmail,
           answers.officeNumber
         );
+
+            teamMembers.push(manager);
+            console.log(teamMembers);
 
       })
       .catch((error) => {
