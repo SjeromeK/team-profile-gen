@@ -10,10 +10,11 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
-function startApp() {
+// some kind of array that stores each individual team member
 
+function startApp() {
   function startTeam() {
-      console.log("Build your team")
+    console.log("Build your team");
     inquirer
       .prompt([
         /* Pass your questions in here */
@@ -23,23 +24,31 @@ function startApp() {
           message: "Enter manager name",
         },
         {
-            type: "input",
-            name: "managerID",
-            message: "Enter manager ID",
+          type: "input",
+          name: "managerID",
+          message: "Enter manager ID",
         },
         {
-            type: "input",
-            name: "managerEmail",
-            message: "Enter manager email"
+          type: "input",
+          name: "managerEmail",
+          message: "Enter manager email",
         },
         {
-            type: "input",
-            name: "officeNumber",
-            message: "Enter office number"
-        }
+          type: "input",
+          name: "officeNumber",
+          message: "Enter office number",
+        },
       ])
       .then((answers) => {
         // Use user feedback for... whatever!!
+
+        const manager = new Manager(
+          answers.managerName,
+          answers.managerID,
+          answers.managerEmail,
+          answers.officeNumber
+        );
+
       })
       .catch((error) => {
         if (error.isTtyError) {
@@ -48,10 +57,9 @@ function startApp() {
           // Something else when wrong
         }
       });
-  } 
+  }
 
-startTeam();
-
+  startTeam();
 }
 
 startApp();
