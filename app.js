@@ -17,6 +17,7 @@ const teamMembers = [];
 function startApp() {
   function startTeam() {
     console.log("Build your team");
+
     inquirer
       .prompt([
         /* Pass your questions in here */
@@ -51,9 +52,51 @@ function startApp() {
           answers.officeNumber
         );
 
-            teamMembers.push(manager);
-            console.log(teamMembers);
+        teamMembers.push(manager);
 
+        addTeamMember();
+      })
+      .catch((error) => {
+        if (error.isTtyError) {
+          // Prompt couldn't be rendered in the current environment
+        } else {
+          // Something else when wrong
+        }
+      });
+  }
+
+  function addTeamMember() {
+    console.log("add team member");
+    inquirer
+      .prompt([
+        /* Pass your questions in here */
+        {
+          type: "list",
+          name: "nextEmployee",
+          message: "Which employee would you like to add next?",
+          choices: [
+            "Engineeer",
+            "Intern",
+            new inquirer.Separator(),
+            "Finished adding team members",
+          ],
+        },
+      ])
+      .then((answers) => {
+        // Use user feedback for... whatever!!
+
+        switch (answers.nextEmployee) {
+          case "Engineeer":
+            createEngineer();
+            break;
+          case "Intern":
+            // code block
+            createIntern();
+            break;
+          default:
+            // code block
+            generateProfile();
+        }
       })
       .catch((error) => {
         if (error.isTtyError) {
