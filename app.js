@@ -145,8 +145,7 @@ function startApp() {
        
        addTeamMember();
       });
-      
-      
+        
 
   }
 
@@ -182,13 +181,13 @@ function startApp() {
       // Use user feedback for... whatever!!
 
       const manager = new Manager(
-        answers.managerName,
-        answers.managerID,
-        answers.managerEmail,
-        answers.officeNumber
+        answers.internName,
+        answers.internID,
+        answers.internEmail,
+        answers.schoolName
       );
 
-      teamMembers.push(manager);
+      teamMembers.push(intern);
 
       addTeamMember();
     })
