@@ -107,6 +107,100 @@ function startApp() {
       });
   }
 
+  function createEngineer() {
+    // inquirer function to capture Engineer data
+    // call addTeamMember
+    inquirer
+      .prompt([
+        /* Pass your questions in here */
+        {
+          type: "input",
+          name: "engineerName",
+          message: "Enter engineer name",
+        },
+        {
+          type: "input",
+          name: "engineerID",
+          message: "Enter engineer ID",
+        },
+        {
+          type: "input",
+          name: "engineerEmail",
+          message: "Enter engineer email",
+        },
+        {
+          type: "input",
+          name: "engineerGithub",
+          message: "Enter engineer GitHub username  ",
+        },
+      ])
+      .then((answers) => {
+        const engineer = new Engineer(
+          answers.engineerName,
+          answers.engineerId,
+          answers.engineerEmail,
+          answers.engineerGithub
+        );
+        teamMembers.push(engineer);
+       
+       addTeamMember();
+      });
+      
+      
+
+  }
+
+  function createIntern() {
+    // inquirer function to capture Intern data
+    // call addTeamMember
+
+    inquirer
+    .prompt([
+      /* Pass your questions in here */
+      {
+        type: "input",
+        name: "internName",
+        message: "Enter intern name",
+      },
+      {
+        type: "input",
+        name: "internID",
+        message: "Enter intern ID",
+      },
+      {
+        type: "input",
+        name: "internEmail",
+        message: "Enter intern email",
+      },
+      {
+        type: "input",
+        name: "schoolName",
+        message: "Enter school name",
+      },
+    ])
+    .then((answers) => {
+      // Use user feedback for... whatever!!
+
+      const manager = new Manager(
+        answers.managerName,
+        answers.managerID,
+        answers.managerEmail,
+        answers.officeNumber
+      );
+
+      teamMembers.push(manager);
+
+      addTeamMember();
+    })
+    
+}
+
+  }
+
+  function generateProfile() {
+    // use templates to construct team.html
+  }
+
   startTeam();
 }
 
