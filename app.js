@@ -14,8 +14,8 @@ const render = require("./lib/htmlRenderer");
 
 const teamMembers = [];
 
-function startApp() {
-  function startTeam() {
+const startApp = () => {
+  const startTeam = () => {
     console.log("Build your team");
 
     inquirer
@@ -53,7 +53,7 @@ function startApp() {
         );
 
         teamMembers.push(manager);
-
+        console.log(manager);
         addTeamMember();
       })
       .catch((error) => {
@@ -63,7 +63,7 @@ function startApp() {
           // Something else when wrong
         }
       });
-  }
+  };
 
   function addTeamMember() {
     console.log("add team member");
@@ -120,7 +120,7 @@ function startApp() {
         },
         {
           type: "input",
-          name: "engineerID",
+          name: "engineerId",
           message: "Enter engineer ID",
         },
         {
@@ -142,11 +142,9 @@ function startApp() {
           answers.engineerGithub
         );
         teamMembers.push(engineer);
-       
-       addTeamMember();
+        console.log(engineer);
+        addTeamMember();
       });
-        
-
   }
 
   function createIntern() {
@@ -154,46 +152,43 @@ function startApp() {
     // call addTeamMember
 
     inquirer
-    .prompt([
-      /* Pass your questions in here */
-      {
-        type: "input",
-        name: "internName",
-        message: "Enter intern name",
-      },
-      {
-        type: "input",
-        name: "internID",
-        message: "Enter intern ID",
-      },
-      {
-        type: "input",
-        name: "internEmail",
-        message: "Enter intern email",
-      },
-      {
-        type: "input",
-        name: "schoolName",
-        message: "Enter school name",
-      },
-    ])
-    .then((answers) => {
-      // Use user feedback for... whatever!!
+      .prompt([
+        /* Pass your questions in here */
+        {
+          type: "input",
+          name: "internName",
+          message: "Enter intern name",
+        },
+        {
+          type: "input",
+          name: "internID",
+          message: "Enter intern ID",
+        },
+        {
+          type: "input",
+          name: "internEmail",
+          message: "Enter intern email",
+        },
+        {
+          type: "input",
+          name: "schoolName",
+          message: "Enter school name",
+        },
+      ])
+      .then((answers) => {
+        // Use user feedback for... whatever!!
 
-      const manager = new Manager(
-        answers.internName,
-        answers.internID,
-        answers.internEmail,
-        answers.schoolName
-      );
+        const intern = new Intern(
+          answers.internName,
+          answers.internID,
+          answers.internEmail,
+          answers.schoolName
+        );
 
-      teamMembers.push(intern);
-
-      addTeamMember();
-    })
-    
-}
-
+        teamMembers.push(intern);
+        console.log(intern);
+        addTeamMember();
+      });
   }
 
   function generateProfile() {
