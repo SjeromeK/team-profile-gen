@@ -193,6 +193,9 @@ const startApp = () => {
 
   function generateProfile() {
     // use templates to construct team.html
+    console.log("RENDER!!!!!!");
+    console.log("TEAMMEMBERS: " + JSON.stringify(teamMembers));
+    render(teamMembers);
   }
 
   startTeam();
