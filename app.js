@@ -11,16 +11,14 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 const render = require("./lib/htmlRenderer");
 
 // some kind of array that stores each individual team member
-
-const teamMembers = [];
+const employees = [];
 
 const startApp = () => {
   const startTeam = () => {
     console.log("Build your team");
-
     inquirer
       .prompt([
-        /* Pass your questions in here */
+        // Manager questions
         {
           type: "input",
           name: "managerName",
@@ -43,25 +41,22 @@ const startApp = () => {
         },
       ])
       .then((answers) => {
-        // Use user feedback for... whatever!!
-
+        // Creating new instanace of manager using users input from inquirer
         const manager = new Manager(
           answers.managerName,
           answers.managerID,
           answers.managerEmail,
           answers.officeNumber
         );
-
-        teamMembers.push(manager);
+        // Pushing newly created manager to employees array
+        employees.push(manager);
         console.log(manager);
+
+        // Calling addTeamMember
         addTeamMember();
       })
       .catch((error) => {
-        if (error.isTtyError) {
-          // Prompt couldn't be rendered in the current environment
-        } else {
-          // Something else when wrong
-        }
+        if (error.isTtyError) throw error;
       });
   };
 
@@ -69,7 +64,7 @@ const startApp = () => {
     console.log("add team member");
     inquirer
       .prompt([
-        /* Pass your questions in here */
+        // Team member question list to add more employees or finish adding and create file
         {
           type: "list",
           name: "nextEmployee",
@@ -83,33 +78,25 @@ const startApp = () => {
         },
       ])
       .then((answers) => {
-        // Use user feedback for... whatever!!
-
+        // Conditional based on user's addTeamMember answers
         switch (answers.nextEmployee) {
           case "Engineeer":
             createEngineer();
             break;
           case "Intern":
-            // code block
             createIntern();
             break;
           default:
-            // code block
             generateProfile();
         }
       })
       .catch((error) => {
-        if (error.isTtyError) {
-          // Prompt couldn't be rendered in the current environment
-        } else {
-          // Something else when wrong
-        }
+        if (error.isTtyError) throw error;
       });
   }
 
   function createEngineer() {
     // inquirer function to capture Engineer data
-    // call addTeamMember
     inquirer
       .prompt([
         /* Pass your questions in here */
@@ -141,19 +128,20 @@ const startApp = () => {
           answers.engineerEmail,
           answers.engineerGithub
         );
-        teamMembers.push(engineer);
+        employees.push(engineer);
         console.log(engineer);
+        // call addTeamMember
         addTeamMember();
+      })
+      .catch((error) => {
+        if (error.isTtyError) throw error;
       });
   }
 
   function createIntern() {
     // inquirer function to capture Intern data
-    // call addTeamMember
-
     inquirer
       .prompt([
-        /* Pass your questions in here */
         {
           type: "input",
           name: "internName",
@@ -176,8 +164,6 @@ const startApp = () => {
         },
       ])
       .then((answers) => {
-        // Use user feedback for... whatever!!
-
         const intern = new Intern(
           answers.internName,
           answers.internID,
@@ -185,21 +171,35 @@ const startApp = () => {
           answers.schoolName
         );
 
-        teamMembers.push(intern);
+        employees.push(intern);
         console.log(intern);
         addTeamMember();
+      })
+      .catch((error) => {
+        if (error.isTtyError) throw error;
       });
   }
 
   function generateProfile() {
     // use templates to construct team.html
-    console.log("RENDER!!!!!!");
-    console.log("TEAMMEMBERS: " + JSON.stringify(teamMembers));
-    render(teamMembers);
+    // console.log("RENDER!!!!!!");
+    // console.log("employees: " + JSON.stringify(employees));
+
+    // if output folder doesn't exist , create it
+    if (!fs.existsSync(OUTPUT_DIR)) {
+      fs.mkdirSync(OUTPUT_DIR);
+    }
+
+    // using fs.writeFile to create team.html file by passing through outputPath and render function
+    fs.writeFile(outputPath, render(employees), (error) => {
+      if (error) throw error;
+
+      console.log("Your team profile has been saved to the newly created output folder.");
+    });
   }
 
   startTeam();
-}
+};
 
 startApp();
 
@@ -212,7 +212,7 @@ startApp();
 
 // After you have your html, you're now ready to create an HTML file using the HTML
 // returned from the `render` function. Now write it to a file named `team.html` in the
-// `output` folder. You can use the variable `outputPath` above target this location.
+// `output` folder. You can use the variable `outputPath` above to target this location.
 // Hint: you may need to check if the `output` folder exists and create it if it
 // does not.
 
